@@ -1,0 +1,7 @@
+איך להשתמש?
+
+הפרוייקט צריך להיות מוגש דרך node ולא דרך ng serve
+
+- להריץ npm install ב - cli
+- להריץ 'node server.js' ב -  cli
+- ללכת לכתובת localhost:4200 בדפדפן

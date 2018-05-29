@@ -1,0 +1,49 @@
+<div id="wrapper" class="flexCol fullHeight">
+    <header>
+        <h1>Angular Exercise</h1>
+        <h2>Yonatan silverstein</h2>
+        <div id="action-buttons-container">
+            <a id="reset-app" class="action-button" (click)="resetApp()">Reset</a>
+            <a id="download-canvas-button" class="action-button" #DownloadCanvasButton (click)="downloadCanvas()">Download canvas</a>
+        </div>
+    </header>
+    <div id="content" class="fullHeight flexRow justify-content-spread align-items-start">
+        <div id="draggables-list" class="fullHeight">
+            <h3>Products</h3>
+            <ng-container *ngIf="Products$ | async as products; else loading">
+                <div *ngFor="let product of products, let i = index" class="product-box">
+                    <div class="product-details">
+                        <h4> Name: {{ product.name }} </h4>
+                        <h4> Code: {{ product.code }} </h4>
+                    </div>
+                    <section class="draggable-initial-container">
+                        <div appResizeHandler appDraggable [ResetPositionOnDrop]=false class="draggable">
+                            <img class="draggable-img resizeable-element" src="{{ImageResolveEndpoint}}/?picUrl={{product.link_to_image}}" alt="">
+                            <div class="resize-handler">resize</div>
+                        </div>
+                    </section>
+                </div>
+            </ng-container>
+            <ng-template #loading>
+                <h2>Loading...</h2>
+            </ng-template>
+        </div>
+
+        <div id="note">
+            <b>Note:</b>
+            <br> Tainted canvas / cross origin problem solved.
+            <br> Images are downloaded by proxy (downloaded to node, then piped back to client)
+            <br>
+            <br>How to use:
+            <ol>
+                <li>drag image anywhere <b>within</b> the canvas</li>
+                <li>click 'Download canvas' button to download</li>
+            </ol>
+        </div>
+
+        <div appDropable id="dropable-area" class="fullHeight">
+            <canvas id="canvas" width="500" height="600" #Canvas></canvas>
+        </div>
+
+    </div>
+</div>
